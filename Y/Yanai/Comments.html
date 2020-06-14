@@ -1,0 +1,450 @@
+﻿<!DOCTYPE html>
+<html lang="en" dir="rtl">
+<head>
+    <!-- META SECTION -->
+    <title>ינאי בתי צמיחה- התלונות שלי</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link rel="icon" href="images/logo.PNG" type="image/x-icon" />
+    <!-- END META SECTION -->
+    <!-- CSS INCLUDE -->
+    <link rel="stylesheet" type="text/css" id="theme" href="css/theme-default.css" />
+    <link href="newCss/complaintdefault.css" rel="stylesheet" />
+    <link href="newCss/commentStyle.css" rel="stylesheet" />
+    <!-- EOF CSS INCLUDE -->
+    <link href='https://fonts.googleapis.com/css?family=Rubik' rel='stylesheet'>
+
+</head>
+<body style="font-family:'Rubik'">
+    <!-- START PAGE CONTAINER -->
+    <div class="page-container">
+
+        <!-- START PAGE SIDEBAR -->
+        <div class="page-sidebar">
+            <!-- START X-NAVIGATION -->
+            <ul class="x-navigation">
+                <li class="xn-logo">
+                    <a href="#">
+                        <div class="profile">
+                            <div id="profile" class="profile-image">
+
+                            </div>
+                        </div>
+                        <div id="hellouser"></div>
+                    </a>
+                    <a href="#" class="x-navigation-control"></a>
+                </li>
+                <li id="Dashboard">
+                    <a href="Dashboard.html"><span class="fa fa-bar-chart-o"></span> <span class="xn-text">תצוגת דו"חות</span></a>
+                </li>
+                <li>
+                    <a href="MyComplaints.html"><span class="fa fa-table"></span> <span class="xn-text">התלונות שלי</span></a>
+                </li>
+                <li id="ManagerComplaints">
+                    <a href="ManagerComplaints.html"><span class="fa fa-file-text-o"></span> <span class="xn-text">פתיחת תלונה חדשה</span></a>
+                </li>
+                <li>
+                    <a href="ArchivedComplaints.html"><span class="fa fa fa-archive"></span> <span class="xn-text">ארכיון תלונות</span></a>
+                </li>
+                <li>
+                    <a href="Login.html"><span class="fa fa-sign-out"></span> <span class="xn-text">התנתק</span></a>
+                </li>
+            </ul>
+            <!-- END X-NAVIGATION -->
+        </div>
+        <!-- END PAGE SIDEBAR -->
+        <!-- PAGE CONTENT -->
+        <div class="page-content">
+
+            <!-- START X-NAVIGATION VERTICAL -->
+            <ul class="x-navigation x-navigation-horizontal x-navigation-panel">
+                <!-- TOGGLE NAVIGATION -->
+                <li class="xn-icon-button">
+                    <a href="#" class="x-navigation-minimize"><span class="fa fa-dedent"></span></a>
+                </li>
+                <!-- END TOGGLE NAVIGATION -->
+            </ul>
+            <!-- END X-NAVIGATION VERTICAL -->
+            <!-- PAGE CONTENT WRAPPER -->
+            <div class="content-frame">
+                <!-- START CONTENT FRAME TOP -->
+                <div class="content-frame-top">
+                    <div class="page-title">
+                        <h2><span class="fa fa-comments"></span> תגובות</h2>
+                    </div>
+                </div>
+                <!-- END CONTENT FRAME TOP -->
+                <!-- START CONTENT FRAME BODY -->
+                <div class="content-frame-body content-frame-body-left" style="height: 668px;">
+
+                    <div id="comments" class="messages messages-img">
+
+                    </div>
+                    <!-- END CONTENT FRAME BODY -->
+                </div>
+                <!-- PAGE CONTENT WRAPPER -->
+            </div>
+            <!-- END PAGE CONTENT -->
+        </div>
+    </div>
+    <!-- END PAGE CONTAINER -->
+    <!-- START PRELOADS -->
+    <audio id="audio-alert" src="audio/alert.mp3" preload="auto"></audio>
+    <audio id="audio-fail" src="audio/fail.mp3" preload="auto"></audio>
+    <!-- END PRELOADS -->
+    <!-- START SCRIPTS -->
+    <!-- START PLUGINS -->
+    <script type="text/javascript" src="js/plugins/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="js/plugins/jquery/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="js/plugins/bootstrap/bootstrap.min.js"></script>
+    <!-- END PLUGINS -->
+    <!-- THIS PAGE PLUGINS -->
+    <script type='text/javascript' src='js/plugins/icheck/icheck.min.js'></script>
+    <script type="text/javascript" src="js/plugins/mcustomscrollbar/jquery.mCustomScrollbar.min.js"></script>
+
+    <script type="text/javascript" src="js/plugins/datatables/jquery.dataTables.min.js"></script>
+    <!-- END PAGE PLUGINS -->
+    <!-- START TEMPLATE -->
+    <script type="text/javascript" src="js/settings.js"></script>
+
+    <script type="text/javascript" src="js/plugins.js"></script>
+    <script type="text/javascript" src="js/actions.js"></script>
+    <script type="text/javascript" src="js/plugins/fileinput/fileinput.min.js"></script>
+    <!-- END TEMPLATE -->
+    <script src="Scripts/ajaxCalls.js"></script>
+    <script src="https://smtpjs.com/v3/smtp.js"></script>
+    <script src="Email.js"></script>
+
+    <!-- END SCRIPTS -->
+    <script>
+        $(document).ready(function () {
+            if (document.referrer == '') self.location = 'Login.html';
+            if (localStorage["Email"]) localStorage.removeItem("Email");
+            if (localStorage["EmailsInformed"]) localStorage.removeItem("EmailsInformed");
+            if (localStorage["EmailTreatment"]) localStorage.removeItem("EmailTreatment");
+            if (localStorage["EmailTreatment"]) localStorage.removeItem("EmailsComments");
+            //if (document.referrer == '') self.location='Login.html';
+            if (localStorage["username"]) {
+                userName = JSON.parse(localStorage["username"]);
+            }
+            document.getElementById("hellouser").innerText += "שלום, " + userName;
+            if (localStorage["CompId"]) {
+                CompNum = JSON.parse(localStorage["CompId"]);
+            }
+            Start();
+        });
+
+        function Start() {
+            CommentStr = "";
+            ajaxCall("GET", "./api/Comment/" + CompNum, "", getCommentsSuccess, error)
+        }
+
+        function getCommentsSuccess(data) {
+            comments = data;
+            ajaxCall("GET", "./api/Manager/Name/" + userName, "", getManIDSuccess, error)
+        }
+
+        function getManIDSuccess(data) {
+            managerID = data;
+            ajaxCall("GET", "./api/Manager", "", getManagersSuccess, error)
+        }
+
+        function getManagersSuccess(data) {
+            managers = data;
+            ajaxCall("GET", "./api/CommentFile", "", getCFilesSuccess, error)
+        }
+
+        function getCFilesSuccess(data) {
+            for (var u = 0; u < managers.length; u++) {
+                if (managers[u].ManagerName == userName) {
+                    if (managers[u].PermissionType == 'M') {
+                        document.getElementById("ManagerComplaints").children[0].style.display = "none";
+                        document.getElementById("Dashboard").children[0].style.display = "none";
+                    }
+                    else if (managers[u].PermissionType == 'CM') {
+                        document.getElementById("Dashboard").children[0].style.display = "none";
+                    }
+                    photo = managers[u].Photo;
+                    break;
+                }
+            }
+            document.getElementById("profile").innerHTML = '<img src="' + photo + '" />';
+            commentFiles = data;
+            for (var i = 0; i < comments.length; i++) {
+                dateANDtime = comments[i].CommentTime.split("T");
+                date = new Date(dateANDtime[0]).toLocaleString("fr-FR").split(' ')[0];
+                OrganizedDate = date.replace('.', '/');
+                time = dateANDtime[1].substring(0, 5);
+                if (comments[i].ManagerID == managerID) {
+                    for (var s = 0; s < managers.length; s++) {
+                        if (comments[i].ManagerID == managers[s].ManagerID)
+                            photoPath = managers[s].Photo;
+                    }
+                    CommentStr += '<div class="item in item-visible">'
+                        + '<div class="image">'
+                        + '<img src="' + photoPath + '">'
+                        + '</div>'
+                        + '<div class="text">'
+                        + '<div class="heading">'
+                        + '<b>' + userName + '</b>'
+                        + '<span class="date">' + time + " " + OrganizedDate + '</span>'
+                        + '</div>'
+                        + comments[i].CommentDes
+                        + '<div class="col-md-6 sliders" id="filesSlider' + comments[i].CommentID + '"></div>'
+                        + '</div>'
+                        + '</div>';
+                }
+                else {
+                    for (var j = 0; j < managers.length; j++) {
+                        if (comments[i].ManagerID == managers[j].ManagerID) {
+                            managerName = managers[j].ManagerName;
+                            photoPath = managers[j].Photo;
+                        }
+                    }
+                    CommentStr += '<div class="item item-visible">'
+                        + '<div class="image">'
+                        + '<img src="' + photoPath + '" alt="John Doe">'
+                        + '</div>'
+                        + '<div class="text">'
+                        + '<div class="heading">'
+                        + '<b>' + managerName + '</b>'
+                        + '<span class="date">' + time + " " + OrganizedDate + '</span>'
+                        + '</div>'
+                        + comments[i].CommentDes
+                        + '<div class="col-md-6 sliders" id="filesSlider' + comments[i].CommentID + '"></div>'
+                        + '</div>'
+                        + '</div>';
+                }
+            }
+            CommentStr += '<div class="panel panel-default push-up-10">'
+                + '<div class="panel-body panel-body-search">'
+                + '<div class="input-group col-md-12">'
+                + '<div class="input-group-btn">'
+                + '</div>'
+                + '<input id="comment" type="text" class="form-control" placeholder="התגובה שלך...">'
+                + '<div class="input-group-btn">'
+                + '</div></div>'
+                + '<input id="uploadFiles" type="file" multiple class="file" data-preview-file-type="any" />'
+                + '</div>'
+                + '<button id="send" onclick="sendComment()" class="btn btn-default">שלח</button>'
+                + '</div>';
+            document.getElementById("comments").innerHTML = CommentStr;
+            $.getScript("js/plugins/fileinput/fileinput.min.js")
+            for (var i = 0; i < comments.length; i++) {
+                for (var f = 0; f < commentFiles.length; f++) {
+                    if (comments[i].CommentID == commentFiles[f].CommentID) {
+                        SlideCreate(comments[i].CommentID);
+                        break;
+                    }
+                }
+            }
+        }
+
+        function SlideCreate(CommentNumber) {
+            strfiles = "";
+            counterfiles = 0;
+            for (var h = 0; h < commentFiles.length; h++) {
+                if (CommentNumber == commentFiles[h].CommentID) {
+                    counterfiles++;
+                }
+            }
+            num = 0;
+            //יצירת מחרוזות של הסליידר
+            for (var j = 0; j < commentFiles.length; j++) {
+                if (CommentNumber == commentFiles[j].CommentID) {
+                    num++;
+                    var ext = (commentFiles[j].FilePath1).substring((commentFiles[j].FilePath1).lastIndexOf('.') + 1);
+                    //אם הסיומת של הקובץ היא של תמונה- יוצרים מחרוזת של תמונה
+                    if (ext == "jpg" || ext == "jpeg" || ext == "bmp" || ext == "gif" || ext == "png" || ext == "PNG") {
+                        strfiles += '<div class="Slide' + CommentNumber + '" style="display: none; ">' +
+                            '<div class="numbertext">' + num + '/' + counterfiles + '</div>' +
+                            '<a href="' + commentFiles[j].FilePath1 + '" download><img title="לחץ להורדה" src="' + commentFiles[j].FilePath1 + '" style="width:100%"></a>' +
+                            '</div>';
+                    }
+                    //אם הסיומת של הקובץ היא של קובץ אחר- יוצרים מחרוזת אחרת
+                    else {
+                        strfiles += '<div class="Slide' + CommentNumber + '" style="display: none; ">' +
+                            '<div class="numbertext">' + num + '/' + counterfiles + '</div>' +
+                            '<a href="' + commentFiles[j].FilePath1 + '" download><img title="לחץ להורדה" src="images/file.jpeg" style="width:100%"></a>' +
+                            '</div>';
+                    }
+                }
+            }
+            strfilesarrow = '<a class="prev1" onclick="plusSlides(1,' + CommentNumber + ')">&#10095;</a>' +
+                '<a class="next1" onclick="plusSlides(-1,' + CommentNumber + ')">&#10094;</a>';//בניית החצים על הסליידר
+            strfiles = strfiles + strfilesarrow;
+            if (strfiles != strfilesarrow) {
+                document.getElementById("filesSlider" + CommentNumber).innerHTML = strfiles;
+                showSlides(slideIndex, CommentNumber);
+            }
+        }
+
+        var slideIndex = 1;
+
+        function showSlides(n, CommentNumber) {
+            var i;
+            var slides = document.getElementsByClassName("Slide" + CommentNumber);//מערך שמקבל את כל הקבצים של התגובה
+            //במידה ואנחנו עומדים על התמונה האחרונה ולוחצים פלוס קדימה הוא מחזיר את סליידאינדקס ל-1
+            if (n > slides.length) { slideIndex = 1 }
+            //במידה ואנחנו עומדים על התמונה הראשונה ולוחצים מינוס אחורה הוא מחזיר את סליידאינדקס לאינדקס האחרון
+            if (n < 1) { slideIndex = slides.length }
+            //מסתיר את כל התמונות ואז חושף רק את מה שאנחנו רוצים לראות
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            slides[slideIndex - 1].style.display = "block";
+        }
+
+        //פונקציה שמוגדרת על החצים של הסליידר
+        function plusSlides(n, CommentNumber) {
+            showSlides((slideIndex += n), CommentNumber);
+        }
+
+        function sendComment() {
+            var data = new FormData();
+            var files = $("#uploadFiles").get(0).files;
+
+            if (files.length > 0) {
+                for (f = 0; f < files.length; f++) {
+                    data.append("UploadedFiles", files[f]);
+                }
+            }
+
+            // Ajax upload
+            $.ajax({
+                type: "POST",
+                url: "./api/File/upload",
+                contentType: false,
+                processData: false,
+                data: data,
+                success: success,
+                error: error
+            });
+        }
+
+        function success(data) {
+            filespath = data;
+            ajaxCall("GET", "./api/Comment/read", "", getallCommentsSuccess, error);
+        }
+
+
+        function getallCommentsSuccess(data) {
+            comments = data;
+            ajaxCall("GET", "./api/Complaint", "", GetCompSuccess, error)
+        }
+
+        function GetCompSuccess(data) {
+            complaints = data;
+            for (var i = 0; i < complaints.length; i++) {
+                if (CompNum == complaints[i].CompID && complaints[i].StatName1 != "בטיפול") {
+                    Complaint = {
+                        "CompID": CompNum,
+                        "onTreatDate": new Date().toISOString(),
+                        "StatName1": "בטיפול"
+                    }
+                    break;
+                }
+                else if (CompNum == complaints[i].CompID && complaints[i].StatName1 == "בטיפול") {
+                    Complaint = {
+                        "CompID": CompNum,
+                        "onTreatDate": complaints[i].OnTreatDate,
+                        "StatName1": "בטיפול"
+                    }
+                    break;
+                }
+            }
+            ajaxCall("PUT", "./api/Complaint/updateStatus", JSON.stringify(Complaint), updateSuccess, error);
+        }
+
+        function updateSuccess() {
+            console.log("Update the status")
+            commentFilesArr = [];
+            if (comments.length == 0) {
+                CommentNum = comments.length;
+            }
+            else {
+                CommentNum = comments[comments.length - 1].CommentID;
+            }
+            for (var i = 0; i < filespath.length; i++) {
+                var CommentFile = {
+                    "FilePath1": filespath[i],
+                    "CommentID": CommentNum + 1
+                }
+                commentFilesArr.push(CommentFile);
+            }
+            commentDes = document.getElementById("comment").value;
+            var Comment = {
+                "CommentID": CommentNum + 1,
+                "CommentTime": new Date().toISOString(),
+                "CommentDes": commentDes,
+                "ManagerID": managerID,
+                "CompID": CompNum
+            }
+
+            ajaxCall("POST", "./api/Comment/insert", JSON.stringify(Comment), insertCommentSuccess, error);
+        }
+
+        function insertCommentSuccess() {
+            console.log("success insert comment!")
+            ajaxCall("POST", "./api/CommentFile/insert", JSON.stringify(commentFilesArr), insertCommentFilesSuccess, error);
+        }
+
+        function insertCommentFilesSuccess() {
+            console.log("success insert commentFiles!")
+            ajaxCall("GET", "./api/ManagerComplaint", "", getMCSuccess, error)
+        }
+
+        function getMCSuccess(data) {
+            managerComaplint = data;
+            ajaxCall("GET", "./api/Complaint/getCustID/" + CompNum, "", getCustidsuccess, error)
+        }
+
+        function getCustidsuccess(data) {
+            CustId = data;
+            ajaxCall("GET", "./api/Customer/getMID/" + CustId, "", getManagerIDSuccess, error);
+        }
+
+        function getManagerIDSuccess(data) {
+            CustManagerID = data;
+            managersIDComp = [];
+            //בדיקה האם מי שמחובר למערכת זה המנהל תיק- אם לא אז לשלוח גם לו התראה
+            if (managerID != CustManagerID) {
+                managersIDComp.push(CustManagerID);
+            }
+            for (var i = 0; i < managerComaplint.length; i++) {
+                if (CompNum == managerComaplint[i].CompID && managerComaplint[i].SendType == 'forInformed' && managerID != managerComaplint[i].ManagerID) {
+                    managersIDComp.push(managerComaplint[i].ManagerID)
+                }
+            }
+            emailStr = "";
+            for (var k = 0; k < managersIDComp.length; k++) {
+                for (var j = 0; j < managers.length; j++) {
+                    if (managersIDComp[k] == managers[j].ManagerID) {
+                        emailStr += managers[j].Email + ", ";
+                        break;
+                    }
+                }
+            }
+            if (emailStr != "") {
+                Emails = emailStr.substring(0, emailStr.length - 2);
+                localStorage["EmailsComments"] = JSON.stringify(Emails);
+            }
+            sendEmail();
+            Start();
+        }
+
+        function error(err) {
+            console.log(err);
+        }
+    </script>
+
+</body>
+</html>
+
+
+
+
+
+

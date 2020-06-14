@@ -1,0 +1,36 @@
+﻿@media (max-width: 1024px) {
+    .x-navigation.x-navigation-horizontal {
+        height: 0px;
+        background: #1d2127;
+    }
+}
+h3 {
+    margin-top: 20%;
+    border: solid 2px;
+    padding: 15% 5% 15% 5%;
+    border-radius: 15px;
+    background-color: white;
+}
+
+.page-container.page-navigation-toggled .page-content {
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+.x-navigation.x-navigation-minimized {
+    display: none;
+}
+
+.page-container.page-container-wide .page-sidebar {
+    width: 0px;
+}
+
+.profile .profile-image {
+    margin: 0px 0px 10px;
+    text-align: right;
+    margin-top: -10px;
+}
+
+.profile {
+    padding: 0px 0px;
+}

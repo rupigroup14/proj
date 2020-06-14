@@ -1,0 +1,11 @@
+﻿.bootstrap-select.form-control:not([class*="span"]) {
+    width: 35%;
+}
+
+.bootstrap-select.btn-group:not(.input-group-btn), .bootstrap-select.btn-group[class*="span"] {
+    float: right;
+}
+
+.right {
+    float: right;
+}
