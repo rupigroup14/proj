@@ -1,0 +1,540 @@
+﻿<!DOCTYPE html>
+<html lang="en" dir="rtl">
+<head>
+    <!-- META SECTION -->
+    <title>ינאי בתי צמיחה- לא טופלו מעל 24 שעות</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link rel="icon" href="images/logo.PNG" type="image/x-icon" />
+    <!-- END META SECTION -->
+    <!-- CSS INCLUDE -->
+    <link rel="stylesheet" type="text/css" id="theme" href="css/theme-default.css" />
+    <link href="newCss/managerdefault.css" rel="stylesheet" />
+    <link href="newCss/complaintStyle.css" rel="stylesheet" />
+    <!-- EOF CSS INCLUDE -->
+    <link href='https://fonts.googleapis.com/css?family=Rubik' rel='stylesheet'>
+
+</head>
+<body style="font-family:'Rubik'">
+    <!-- START PAGE CONTAINER -->
+    <div class="page-container">
+
+        <!-- START PAGE SIDEBAR -->
+        <div class="page-sidebar">
+            <!-- START X-NAVIGATION -->
+            <ul class="x-navigation">
+                <li class="xn-logo">
+                    <a href="#">
+                        <div class="profile">
+                            <div id="profile" class="profile-image">
+
+                            </div>
+                        </div>
+                        <div id="hellouser"></div>
+                    </a>
+                    <a href="#" class="x-navigation-control"></a>
+                </li>
+                <li>
+                    <a href="Dashboard.html"><span class="fa fa-bar-chart-o"></span> <span class="xn-text">תצוגת דו"חות</span></a>
+                </li>
+                <li>
+                    <a href="MyComplaints.html"><span class="fa fa-table"></span> <span class="xn-text">התלונות שלי</span></a>
+                </li>
+                <li>
+                    <a href="ManagerComplaints.html"><span class="fa fa-file-text-o"></span> <span class="xn-text">פתיחת תלונה חדשה</span></a>
+                </li>
+                <li>
+                    <a href="ArchivedComplaints.html"><span class="fa fa fa-archive"></span> <span class="xn-text">ארכיון תלונות</span></a>
+                </li>
+                <li>
+                    <a href="PermissionsManage.html"><span class="fa fa-cogs"></span> <span class="xn-text">ניהול הרשאות</span></a>
+                </li>
+                <li>
+                    <a href="Login.html"><span class="fa fa-sign-out"></span> <span class="xn-text">התנתק</span></a>
+                </li>
+            </ul>
+            <!-- END X-NAVIGATION -->
+        </div>
+        <!-- END PAGE SIDEBAR -->
+        <!-- PAGE CONTENT -->
+        <div class="page-content">
+
+            <!-- START X-NAVIGATION VERTICAL -->
+            <ul class="x-navigation x-navigation-horizontal x-navigation-panel">
+                <!-- TOGGLE NAVIGATION -->
+                <li class="xn-icon-button">
+                    <a href="#" class="x-navigation-minimize"><span class="fa fa-dedent"></span></a>
+                </li>
+                <!-- END TOGGLE NAVIGATION -->
+            </ul>
+            <!-- END X-NAVIGATION VERTICAL -->
+            <!-- PAGE CONTENT WRAPPER -->
+            <div class="page-content-wrap">
+
+                <div class="row">
+                    <div class="col-md-12">
+
+                        <!-- START DEFAULT DATATABLE -->
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">דו"ח תלונות שלא טופלו מעל 24 שעות</h3>
+                            </div>
+                            <div class="panel-body hscroll">
+                                <table id="complaintTable" width="100%" class="table dataTable">
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th>מס' תלונה</th>
+                                            <th>תאריך פתיחה</th>
+                                            <th>שם לקוח</th>
+                                            <th>מנהל תיק לקוח</th>
+                                            <th>תאריך הזמנה</th>
+                                            <th>סטטוס</th>
+                                            <th>תאריך עדכון</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- END DEFAULT DATATABLE -->
+                    </div>
+                </div>
+
+            </div>
+            <!-- PAGE CONTENT WRAPPER -->
+        </div>
+        <!-- END PAGE CONTENT -->
+    </div>
+    <!-- END PAGE CONTAINER -->
+    <!-- START PRELOADS -->
+    <audio id="audio-alert" src="audio/alert.mp3" preload="auto"></audio>
+    <audio id="audio-fail" src="audio/fail.mp3" preload="auto"></audio>
+    <!-- END PRELOADS -->
+    <!-- START SCRIPTS -->
+    <!-- START PLUGINS -->
+    <script type="text/javascript" src="js/plugins/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="js/plugins/jquery/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="js/plugins/bootstrap/bootstrap.min.js"></script>
+    <!-- END PLUGINS -->
+    <!-- THIS PAGE PLUGINS -->
+    <script type='text/javascript' src='js/plugins/icheck/icheck.min.js'></script>
+    <script type="text/javascript" src="js/plugins/mcustomscrollbar/jquery.mCustomScrollbar.min.js"></script>
+
+    <script type="text/javascript" src="js/plugins/datatables/jquery.dataTables.min.js"></script>
+    <!-- END PAGE PLUGINS -->
+    <!-- START TEMPLATE -->
+    <script type="text/javascript" src="js/settings.js"></script>
+
+    <script type="text/javascript" src="js/plugins.js"></script>
+    <script type="text/javascript" src="js/actions.js"></script>
+    <!-- END TEMPLATE -->
+    <script src="Scripts/ajaxCalls.js"></script>
+
+    <!-- END SCRIPTS -->
+
+    <script>
+
+        $(document).ready(function () {
+            CreateTable();
+            PreviousPage = document.referrer;
+            CheckPage = PreviousPage.split("/");
+            if (CheckPage[CheckPage.length - 1] != 'Dashboard.html') {
+                self.location = 'Login.html';
+            }
+            if (localStorage["username"]) {
+                userName = JSON.parse(localStorage["username"]);
+            }
+            document.getElementById("hellouser").innerText = "שלום, " + userName;
+            ajaxCall("GET", "./api/Manager", "", getManagerSuccess, error)
+        });
+
+        function getManagerSuccess(data) {
+            managers = data;
+            for (var u = 0; u < managers.length; u++) {
+                if (managers[u].ManagerName == userName) {
+                    photo = managers[u].Photo;
+                    managerID = managers[u].ManagerID;
+                    break;
+                }
+            }
+            document.getElementById("profile").innerHTML = '<img src="' + photo + '" />';
+            ajaxCall("GET", "./api/Problem", "", getProbSuccess, error)
+        }
+
+        function getProbSuccess(data) {
+            problems = data;
+            ajaxCall("GET", "./api/File", "", getFileSuccess, error)
+        }
+
+        function getFileSuccess(data) {
+            files = data;
+            ajaxCall("GET", "./api/ManagerComplaint", "", getMCSuccess, error)
+        }
+
+        function getMCSuccess(data) {
+            managercomplaint = data;
+            ajaxCall("GET", "./api/Customer", "", getCustSuccess, error)
+        }
+
+        function getCustSuccess(data) {
+            customers = data;
+            ajaxCall("GET", "./api/Complaint", "", getComplaintSuccess, error)
+        }
+
+        function getComplaintSuccess(data) {
+            complaints = data;
+            complaintNew = [];
+            for (var w = 0; w < complaints.length; w++) {
+                if (complaints[w].StatName1 == "ממתין לטיפול" || complaints[w].StatName1 == "חדש") {
+                    firstDate = new Date();
+                    secondDate = new Date(complaints[w].OpenDate);
+                    const milliseconds = Math.abs(firstDate - secondDate);
+                    const hours = milliseconds / 36e5;
+                    if (hours > 24) {
+                        complaintNew.push(complaints[w]);
+                    }
+                }
+                else if (complaints[w].OnTreatDate != "") {
+                    firstDate1 = new Date(complaints[w].OnTreatDate);
+                    secondDate1 = new Date(complaints[w].OpenDate);
+                    const milliseconds1 = Math.abs(firstDate1 - secondDate1);
+                    const hours1 = milliseconds1 / 36e5;
+                    if (hours1 > 24) {
+                        complaintNew.push(complaints[w]);
+                    }
+                }
+            }
+            $('#complaintTable').dataTable().fnClearTable();
+            $('#complaintTable').dataTable().fnAddData(complaintNew);
+        }
+
+        function CreateTable() {
+            tbl = $('#complaintTable').DataTable({
+                data: "",
+                language: {
+                    url: '//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Hebrew.json'
+                },
+                pageLength: 10,
+                columns: [
+                    {
+                        "className": 'details-control',
+                        "orderable": false,
+                        "searchable": false,
+                        "data": null,
+                        "defaultContent": '',
+                        "render": function () {
+                            return '<i class="fa fa-plus" aria-hidden="true"></i>';
+                        },
+                        targets: 0
+                    },
+                    { data: "CompID" },
+                    {
+                        data: "OpenDate",
+                        render: function (data, type, row, meta) {
+                            newD = new Date(data).toLocaleString("fr-FR").split(' ')[0];
+                            newD1 = newD.replace('.', '/');
+                            return newD1.replace('.', '/');
+                        }
+                    },
+                    {
+                        data: "CusLogin",
+                        render: function (data, type, row, meta) {
+                            for (var j = 0; j < customers.length; j++) {
+                                if (data == customers[j].CustLogin) {
+                                    custname = customers[j].CustName;
+                                }
+                            }
+                            return custname;
+                        }
+                    },
+                    {
+                        data: "CusLogin",
+                        render: function (data, type, row, meta) {
+                            for (var p = 0; p < customers.length; p++) {
+                                if (data == customers[p].CustLogin) {
+                                    managerID = customers[p].ManagerID;
+                                }
+                            }
+                            for (var i = 0; i < managers.length; i++) {
+                                if (managerID == managers[i].ManagerID) {
+                                    NameOfMan = managers[i].ManagerName;
+                                }
+                            }
+                            return NameOfMan;
+                        }
+                    },
+                    {
+                        data: "OrderDate",
+                        render: function (data, type, row, meta) {
+                            newD = new Date(data).toLocaleString("fr-FR").split(' ')[0];
+                            newD1 = newD.replace('.', '/');
+                            return newD1.replace('.', '/');
+                        }
+                    },
+                    {
+                        data: "StatName1",
+                        render: function (data, type, row, meta) {
+                            if (data == "חדש") {
+                                return "<span class='label label-new label-form'>" + data + "</span>";
+                            }
+                            else if (data == "בטיפול") {
+                                return "<span class='label label-treatment label-form'>" + data + "</span>";
+                            }
+                            else if (data == "נסגר") {
+                                return "<span class='label label-closed label-form'>" + data + "</span>";
+                            }
+                            else {
+                                return "<span class='label label-waitingtreatment label-form'>" + data + "</span>";
+                            }
+                        }
+                    },
+                    {
+                        data: "LastUpdate",
+                        render: function (data, type, row, meta) {
+                            newD = new Date(data).toLocaleString("fr-FR").split(' ')[0];
+                            newD1 = newD.replace('.', '/');
+                            return newD1.replace('.', '/');
+                        }
+                    },
+                ],
+                "order": [[1, 'asc']]
+            });
+
+
+            $('#complaintTable tbody').on('click', 'td.details-control', function () {
+                var tr = $(this).closest('tr');
+                var tdi = tr.find("i.fa");
+                var row = tbl.row(tr);
+
+                if (row.child.isShown()) {
+                    // This row is already open - close it
+                    row.child.hide();
+                    tr.removeClass('shown');
+                    tdi.first().removeClass('fa-minus');
+                    tdi.first().addClass('fa-plus');
+                }
+                else {
+                    // Open this row
+                    row.child(format(row.data())).show();
+                    tr.addClass('shown');
+                    tdi.first().removeClass('fa-plus');
+                    tdi.first().addClass('fa-minus');
+                }
+
+                for (var i = 0; i < problems.length; i++) {
+                    if ((row.data()).CompID == problems[i].CompID) {
+                        for (var j = 0; j < files.length; j++) {
+                            if (problems[i].ProbID == files[j].ProblemID) {
+                                showSlides(slideIndex, problems[i].ProbID);
+                                break;
+                            }
+                        }
+
+                    }
+                }
+            });
+
+
+            $('#complaintTable tbody').on('click', 'td.archive-control', function () {
+                var tr = $(this).closest('tr');
+                var row = tbl.row(tr);
+                if (confirm("האם אתה בטוח מעוניין להעביר את התלונה לארכיון? לא יהיה ניתן לבצע שינויים בתלונה שאינה סגורה")) {
+                    ArchiveComplaint((row.data()).CompID);
+                }
+
+            });
+
+            $('#complaintTable tbody').on('click', 'td.edit-control', function () {
+                var tr = $(this).closest('tr');
+                var row = tbl.row(tr);
+                EditComplaint((row.data()).CompID, (row.data()).StatName1);
+
+            });
+        }
+
+        function EditComplaint(number, status) {
+            localStorage["CompId"] = JSON.stringify(number);
+            localStorage["Status"] = JSON.stringify(status);
+            window.location.href = "editManagerComplaint.html";
+        }
+
+        function ArchiveComplaint(number) {
+            comnumber = number;
+            Complaint = {
+                "CompID": comnumber,
+                "Archived": true
+            }
+            ajaxCall("PUT", "./api/Complaint/updateArchive", JSON.stringify(Complaint), updateSuccess, error);
+        }
+
+
+        function updateSuccess() {
+            console.log("complaint archvied!")
+            window.location.reload();
+        }
+
+        //בלחיצה על פלוס בטבלה הפונקציה מופעלת ומקבלת את התלונה של אותה שורה
+        function format(d) {
+            strprob = '';
+            strfiles = '';
+            for (var i = 0; i < problems.length; i++) {
+                if (d.CompID == problems[i].CompID) {
+                    if (problems[i].ProbType == 'מוצר') {
+                        strfiles = '<div style="width:40%" class="slideshow-container">';
+                        count = 0;
+                        num = 0;
+                        //ספירה כמה קבצים יש לאותה בעיה שיוצרים לה את הסליידר
+                        for (var h = 0; h < files.length; h++) {
+                            if (problems[i].ProbID == files[h].ProblemID) {
+                                count++;
+                            }
+                        }
+                        //יצירת מחרוזות של הסליידר
+                        for (var j = 0; j < files.length; j++) {
+                            if (problems[i].ProbID == files[j].ProblemID) {
+                                num++;
+                                var ext = (files[j].Filepath).substring((files[j].Filepath).lastIndexOf('.') + 1);
+                                //אם הסיומת של הקובץ היא של תמונה- יוצרים מחרוזת של תמונה
+                                if (ext == "jpg" || ext == "jpeg" || ext == "bmp" || ext == "gif" || ext == "png" || ext == "PNG") {
+                                    strfiles += '<div class="mySlides' + problems[i].ProbID + '" style="display: none; ">' +
+                                        '<div class="numbertext">' + num + '/' + count + '</div>' +
+                                        '<a href="' + files[j].Filepath + '" download><img src="./' + files[j].Filepath + '" style="width:100%"/></a>' +
+                                        '</div>';
+                                }
+                                //אם הסיומת של הקובץ היא של וידאו- יוצרים מחרוזת של וידאו
+                                else {
+                                    strfiles += '<div class="mySlides' + problems[i].ProbID + '" style="display: none; ">' +
+                                        '<div class="numbertext">' + num + '/' + count + '</div>' +
+                                        '<a href="' + files[j].Filepath + '" download><img src="images/video.PNG" style="width:100%"/></a>' +
+                                        '</div>';
+                                }
+                            }
+                        }
+                        strfilesarrow = '<a class="prev1" onclick="plusSlides(1,' + problems[i].ProbID + ')">&#10095;</a>' +
+                            '<a class="next1" onclick="plusSlides(-1,' + problems[i].ProbID + ')">&#10094;</a>' +
+                            '</div>';
+                        strfiles = strfiles + strfilesarrow;
+                        if (strfiles == '<div style="width:40%" class="slideshow-container">' + strfilesarrow) {
+                            strfiles = 'אין קבצים';
+                        }
+                        strprob += '<div id="tdiv"><table style="width:100%;">' +
+                            '<tr class="wid">' +
+                            '<td><b>שם המוצר:<b></td>' +
+                            '<td><b>תיאור:<b></td>' +
+                            '<td><b>תמונה/וידאו:<b></td>' +
+                            '<td></td>' +
+                            '</tr>' +
+                            '<tr class="wid">' +
+                            '<td>' + problems[i].ProductName + '</td>' +
+                            '<td>' + problems[i].Description11 + '</td>' +
+                            '<td>' + strfiles + '</td>' +
+                            '</tr>' +
+                            '</table>' +
+                            '</div>' +
+                            '</div>';
+                    }
+                    //אם מדובר בבעיית אספקה
+                    else {
+                        strprob += '<div id="tdiv"><table style="width:100%;">' +
+                            '<tr class="wid">' +
+                            '<td><b>שם המוצר:<b></td>' +
+                            '<td><b>תיאור:<b></td>' +
+                            '<td><b>תמונה/וידאו:<b></td>' +
+                            '<td></td>' +
+                            '</tr>' +
+                            '<tr class="wid">' +
+                            '<td>' + problems[i].ProductName + '</td>' +
+                            '<td>' + problems[i].Description11 + '</td>' +
+                            '<td>אין קבצים</td>' +
+                            '</tr>' +
+                            '</table>' +
+                            '</div>' +
+                            '</div>';
+                    }
+                }
+            }
+            if (d.OrderReport == '') {
+                strreport = "אין קובץ";
+            }
+            else {
+                strreport = "<a href='" + d.OrderReport + "' download>הורד קובץ</a>";
+            }
+            forT = '';
+            forI = '';
+            //יצירת מחרוזות של מיודעים, לטיפול של
+            for (var k = 0; k < managercomplaint.length; k++) {
+                if (d.CompID == managercomplaint[k].CompID) {
+                    for (var l = 0; l < managers.length; l++) {
+                        if (managercomplaint[k].ManagerID == managers[l].ManagerID) {
+                            if (managercomplaint[k].SendType == 'forTreatment')
+                                forT += managers[l].ManagerName + ', ';
+                            else
+                                forI += managers[l].ManagerName + ', ';
+                        }
+                    }
+                }
+            }
+
+            forT = forT.substring(0, forT.length - 2);
+            forI = forI.substring(0, forI.length - 2);
+            if (d.StatName1 == "חדש") {
+                strprob += '<div style="text-align:right;">' +
+                    '<div class="B">סקר אריזה מפורט: </div><div>' + strreport + '</div>' +
+                    '<button type="button" id="comment" class="btn btn-warning btn-rounded">תגובות</button>' +
+                    '</div>';
+            }
+            else if (d.ModeOfTreatment1 != "") {
+                strprob += '<div style="text-align:right;">' +
+                    '<div class="B">בטיפול של: </div><div>' + forT + '</div>' +
+                    '<div class="B">מיודעים: </div><div>' + forI + '</div>' +
+                    '<div class="B">סקר אריזה מפורט: </div><div>' + strreport + '</div>' +
+                    '<div class="B">אופן טיפול: </div><div>' + d.ModeOfTreatment1 + '</div>' +
+                    '<button type="button" id="comment" class="btn btn-warning btn-rounded">תגובות</button>' +
+                    '</div>';
+            }
+            else {
+                strprob += '<div style="text-align:right;">' +
+                    '<div class="B">בטיפול של: </div><div>' + forT + '</div>' +
+                    '<div class="B">מיודעים: </div><div>' + forI + '</div>' +
+                    '<div class="B">סקר אריזה מפורט: </div><div>' + strreport + '</div>' +
+                    '<button type="button" id="comment" class="btn btn-warning btn-rounded">תגובות</button>' +
+                    '</div>';
+            }
+            return strprob;
+        }
+
+        var slideIndex = 1;
+
+        function showSlides(n, PID) {
+            var i;
+            var slides = document.getElementsByClassName("mySlides" + PID);//מערך שמקבל את כל הקבצים של הבעיה
+            //במידה ואנחנו עומדים על התמונה האחרונה ולוחצים פלוס קדימה הוא מחזיר את סליידאינדקס ל-1
+            if (n > slides.length) { slideIndex = 1 }
+            //במידה ואנחנו עומדים על התמונה הראשונה ולוחצים מינוס אחורה הוא מחזיר את סליידאינדקס לאינדקס האחרון
+            if (n < 1) { slideIndex = slides.length }
+            //מסתיר את כל התמונות ואז חושף רק את מה שאנחנו רוצים לראות
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            slides[slideIndex - 1].style.display = "block";
+        }
+
+        //פונקציה שמוגדרת על החצים של הסליידר
+        function plusSlides(n, PID) {
+            showSlides((slideIndex += n), PID);
+        }
+
+        function error(err) {
+            console.log(err);
+        }
+    </script>
+</body>
+</html>
+
+
+
+
+
+

@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+<head>
+    <title>Machine Learning</title>
+    <link href='https://fonts.googleapis.com/css?family=Balsamiq+Sans' rel='stylesheet'>
+</head>
+<body style="font-family:Balsamiq Sans">
+    <script src=PorterStemmer1980.js></script>
+    <link href="Style/StyleSheet.css" rel="stylesheet" />
+    <div id="PageTitle"><h3>Machine learning algorithm that classify the text you enter into one of the 3 categories: negative, neutral or positive</h3></div>
+    <div id="InputOutput">
+        <div style="font-size:30px;">Type your text:</div>
+        <textarea rows="6" cols="50" id="sentence"></textarea>
+        <div id="go">
+            <button onclick="Enter()">Go</button>
+        </div>
+        <div id="result"></div>
+    </div>
+
+    <!-- END TEMPLATE -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="Scripts/ajaxCalls.js"></script>
+    <script>
+
+        function Enter() {
+            document.getElementById("result").innerHTML = "";
+            text = document.getElementById("sentence").value;
+            text = text.toLowerCase()
+            charsToRemove = ["@", ",", ".", ";", "'", "-", "+", "_", "!", "(", ")", "*", ">", "<", "#", "$", "%", "^", "&", "/", ":"]
+            for (var i = 0; i < charsToRemove.length; i++) {
+                while (text.includes(charsToRemove[i])) {
+                    text = text.replace(charsToRemove[i], "");
+                }
+            }
+            ajaxCall("GET", "./api/Tweets/" + text, "", Success, error)
+        }
+
+        function Success(data) {
+            result = data;
+            if (result == 0) {
+                document.getElementById("result").innerHTML = "It seems that the text is negative";
+            }
+            else if (result == 1) {
+                document.getElementById("result").innerHTML = "It seems that the text is neutral";
+            }
+            else {
+                document.getElementById("result").innerHTML = "It seems that the text is positive";
+            }
+        }
+
+        function error(err) {
+            console.log(err);
+        }
+    </script>
+</body>
+</html>

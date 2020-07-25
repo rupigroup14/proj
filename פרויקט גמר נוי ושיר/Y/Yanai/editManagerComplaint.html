@@ -1,0 +1,828 @@
+﻿<!DOCTYPE html>
+<html lang="en" dir="rtl">
+<head>
+    <!-- META SECTION -->
+    <title>ינאי בתי צמיחה- טופס תלונה</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link rel="icon" href="images/logo.PNG" type="image/x-icon" />
+    <!-- END META SECTION -->
+    <!-- CSS INCLUDE -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/css/bootstrap.css" rel="stylesheet" />
+    <link href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/css/bootstrap-select.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" id="theme" href="css/theme-default.css" />
+    <link href="newCss/managerdefault.css" rel="stylesheet" />
+    <link href="newCss/managerstyle.css" rel="stylesheet" />
+    <link href="newCss/editComStyle.css" rel="stylesheet" />
+    <!-- EOF CSS INCLUDE -->
+    <link href='https://fonts.googleapis.com/css?family=Rubik' rel='stylesheet'>
+</head>
+<body style="font-family:'Rubik'">
+    <!-- START PAGE CONTAINER -->
+    <div class="page-container">
+
+        <!-- START PAGE SIDEBAR -->
+        <div class="page-sidebar">
+            <!-- START X-NAVIGATION -->
+            <ul class="x-navigation">
+                <li class="xn-logo">
+                    <a href="#">
+                        <div class="profile">
+                            <div id="profile" class="profile-image">
+
+                            </div>
+                        </div>
+                        <div id="hellouser"></div>
+                    </a>
+                    <a href="#" class="x-navigation-control"></a>
+                </li>
+                <li id="Dashboard">
+                    <a href="Dashboard.html"><span class="fa fa-bar-chart-o"></span> <span class="xn-text">תצוגת דו"חות</span></a>
+                </li>
+                <li>
+                    <a href="MyComplaints.html"><span class="fa fa-table"></span> <span class="xn-text">התלונות שלי</span></a>
+                </li>
+                <li>
+                    <a href="ManagerComplaints.html"><span class="fa fa-file-text-o"></span> <span class="xn-text">פתיחת תלונה חדשה</span></a>
+                </li>
+                <li>
+                    <a href="ArchivedComplaints.html"><span class="fa fa fa-archive"></span> <span class="xn-text">ארכיון תלונות</span></a>
+                </li>
+                <li id="permissionmanage">
+                    <a href="PermissionsManage.html"><span class="fa fa-cogs"></span> <span class="xn-text">ניהול הרשאות</span></a>
+                </li>
+                <li>
+                    <a href="Login.html"><span class="fa fa-sign-out"></span> <span class="xn-text">התנתק</span></a>
+                </li>
+            </ul>
+            <!-- END X-NAVIGATION -->
+        </div>
+        <!-- END PAGE SIDEBAR -->
+        <!-- PAGE CONTENT -->
+        <div class="page-content">
+
+            <!-- START X-NAVIGATION VERTICAL -->
+            <ul class="x-navigation x-navigation-horizontal x-navigation-panel">
+                <!-- TOGGLE NAVIGATION -->
+                <li class="xn-icon-button">
+                    <a href="#" class="x-navigation-minimize"><span class="fa fa-dedent"></span></a>
+                </li>
+                <!-- END TOGGLE NAVIGATION -->
+            </ul>
+            <!-- END X-NAVIGATION VERTICAL -->
+            <!-- PAGE CONTENT WRAPPER -->
+            <div class="page-content-wrap">
+                <div class="row">
+                    <div class="col-md-12">
+
+                        <form data-toggle="validator" role="form" method="post" onsubmit="SaveChanges()" enctype="multipart/form-data" class="form-horizontal">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title"><strong>פתיחת תלונה חדשה</strong></h3>
+                                </div>
+
+                                <div class="panel-body">
+
+                                    <div class="form-group">
+                                        <label class="col-md-3 col-xs-12 control-label right">שם לקוח</label>
+                                        <div class="col-md-6 col-xs-12 right">
+                                            <select disabled required id="selectcustomer" class='form-control select selectpicker' data-live-search="true">
+                                                <option hidden="" disabled="disabled" selected="selected" value="">בחר</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label class="col-md-3 col-xs-12 control-label right">תאריך הזמנה</label>
+                                        <div class="col-md-6 col-xs-12 right">
+                                            <div class="input-group">
+                                                <input disabled id="date" type="text" class="form-control datepicker" aria-required="true" required>
+                                                <span class="input-group-addon" id="Icon2"><span class="fa fa-calendar"></span></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 col-xs-12 control-label right">תיאור בעיה</label>
+                                        <div class="col-md-6 col-xs-12 right">
+                                            <!-- START JUSTIFIED TABS -->
+                                            <div class="panel panel-default tabs">
+                                                <ul class="nav nav-tabs nav-justified">
+                                                    <li id="product0" class="active"><a id="0Pnoclick" href="#tabProduct0" data-toggle="tab">בעיה ברמת מוצר</a></li>
+                                                    <li id="supply0"><a id="0Snoclick" href="#tabSupply0" data-toggle="tab">בעיה ברמת אספקה</a></li>
+                                                </ul>
+                                                <div class="panel-body tab-content">
+                                                    <div class="tab-pane active" id="tabProduct0">
+                                                        <div class="form-group">
+                                                            <label class="col-md-3 col-xs-12 control-label right">שם המוצר</label>
+                                                            <div class="col-md-6 col-xs-12 right">
+                                                                <select disabled required id="productname0" class='form-control select selectpicker' data-live-search="true">
+                                                                    <option disabled="disabled" selected="selected" value="">בחר</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label class="col-md-3 col-xs-12 control-label right">תיאור</label>
+                                                            <div class="col-md-6 col-xs-12 right">
+                                                                <div class="input-group">
+                                                                    <textarea disabled id="descriptionP0" class="form-control" rows="5" cols="80" required style="z-index: 1;"></textarea>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label class="col-md-3 control-label right">קבצים מצורפים:</label>
+                                                            <div id="slider0" class="slideshow-container col-md-6 right"></div>
+                                                        </div>
+
+                                                        <div class="form-group" style="display:none;">
+                                                            <label class="col-md-3 col-xs-12 control-label right">צירוף תמונה/ וידאו</label>
+                                                            <div class="col-md-6 col-xs-12 right">
+                                                                <div class="input-group">
+                                                                    <input multiple="multiple" type="file" class="fileinput" name="filename1" id="filename0" title="העלה קבצים" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="tab-pane" id="tabSupply0">
+                                                        <label class="col-md-3 col-xs-12 control-label right">תיאור</label>
+                                                        <div class="col-md-6 col-xs-12 right">
+                                                            <textarea disabled id="descriptionS0" class="form-control" rows="5" cols="80"></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- END JUSTIFIED TABS -->
+                                        </div>
+                                    </div>
+
+                                    <div id="problems">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-md-3 col-xs-12 control-label right">מיודעים</label>
+                                        <div class="col-md-6 col-xs-12 right">
+                                            <select required id="selectforInf" class='form-control select selectpicker' data-live-search='true' multiple></select>
+                                        </div>
+                                    </div>
+
+                                    <div id="hideTreat" class="form-group" style="display:none;">
+                                        <label class="col-md-3 col-xs-12 control-label right">לטיפול של</label>
+                                        <div class="col-md-6 col-xs-12 right">
+                                            <select required id="selectforTreat" class='form-control select selectpicker' data-live-search='true'></select>
+                                        </div>
+                                    </div>
+
+                                    <div id="hideReport" class="form-group">
+                                        <label class="col-md-3 col-xs-12 control-label right">סקר אריזה מפורט</label>
+                                        <div id="changemargin" class="col-md-6 col-xs-12 right">
+                                            <div id="FI" class="input-group">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-md-3 col-xs-12 control-label right">אופן טיפול</label>
+                                        <div class="col-md-6 col-xs-12 right">
+                                            <textarea id="TreatMode" type="text" class="form-control"></textarea>
+                                            <label>(במילוי שדה זה התלונה תיסגר)</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="col-md-6 col-xs-12 right">
+                                            <button onclick="GoToComments()" type="button" id="comment" class="btn btn-primary btn-rounded">תגובות</button>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="panel-footer">
+                                    <button id="send" type="submit" class="btn btn-primary pull-right">שמור</button>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+            <!-- END PAGE CONTENT WRAPPER -->
+        </div>
+        <!-- END PAGE CONTENT -->
+    </div>
+    <!-- END PAGE CONTAINER -->
+    <!-- START SCRIPTS -->
+    <!-- START PLUGINS -->
+    <script type="text/javascript" src="js/plugins/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="js/plugins/jquery/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="js/plugins/bootstrap/bootstrap.min.js"></script>
+    <!-- END PLUGINS -->
+    <!-- THIS PAGE PLUGINS -->
+    <script type='text/javascript' src='js/plugins/icheck/icheck.min.js'></script>
+    <script type="text/javascript" src="js/plugins/mcustomscrollbar/jquery.mCustomScrollbar.min.js"></script>
+
+    <script type="text/javascript" src="js/plugins/bootstrap/bootstrap-datepicker.js"></script>
+    <script type="text/javascript" src="js/plugins/bootstrap/bootstrap-file-input.js"></script>
+    <script type="text/javascript" src="js/plugins/bootstrap/bootstrap-select.js"></script>
+    <script type="text/javascript" src="js/plugins/tagsinput/jquery.tagsinput.min.js"></script>
+    <!-- END THIS PAGE PLUGINS -->
+    <!-- START TEMPLATE -->
+    <script type="text/javascript" src="js/settings.js"></script>
+
+    <script type="text/javascript" src="js/plugins.js"></script>
+    <script type="text/javascript" src="js/actions.js"></script>
+    <!-- END TEMPLATE -->
+    <script src="Scripts/ajaxCalls.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if (localStorage["Email"]) localStorage.removeItem("Email");
+            if (localStorage["EmailsInformed"]) localStorage.removeItem("EmailsInformed");
+            if (localStorage["EmailTreatment"]) localStorage.removeItem("EmailTreatment");
+            if (localStorage["EmailsComments"]) localStorage.removeItem("EmailsComments");
+            if (document.referrer == '') self.location = 'Login.html';
+            $("form").submit(f1);
+            if (localStorage["CompId"]) {
+                CompNumEdit = JSON.parse(localStorage["CompId"]);
+            }
+            if (localStorage["username"]) {
+                userName = JSON.parse(localStorage["username"]);
+            }
+            document.getElementById("hellouser").innerText = "שלום, " + userName;
+            //קריאת רשימת לקוחות לצורך הכנסה לסלקט
+            ajaxCall("GET", "./api/Customer", "", getCustSuccess, error);
+        });
+
+        function f1() {
+            return false;
+        }
+
+        function getCustSuccess(data) {
+            custTable = data;
+            ajaxCall("GET", "./api/ManagerComplaint", "", getMCSuccess, error)
+        }
+
+        function getMCSuccess(data) {
+            MCTable = data;
+            //קריאת רשימת מנהלים לצורך הכנסה לסלקט
+            ajaxCall("GET", "./api/Manager", "", getManagerSuccess, error);
+        }
+
+        //יצירת רשימות בחירה של לקוחות ומיודעים לתלונה
+        function getManagerSuccess(data) {
+            managerTable = data;
+            ajaxCall("GET", "./api/Complaint", "", GetComplaintSuccess, error)
+        }
+
+        function GetComplaintSuccess(data) {
+            complaintTable = data;
+            //בדיקה מי הלקוח בתלונה
+            for (var i = 0; i < complaintTable.length; i++) {
+                if (CompNumEdit == complaintTable[i].CompID) {
+                    CusLogin = complaintTable[i].CusLogin;
+                }
+            }
+            //בדיקה מי המנהל תיק שלו
+            for (var j = 0; j < custTable.length; j++) {
+                if (CusLogin == custTable[j].CustLogin) {
+                    CusManagerID = custTable[j].ManagerID;
+                    break;
+                }
+            }
+            managerexist = "";
+            customermanagerexist = "";
+            for (var u = 0; u < managerTable.length; u++) {
+                if (managerTable[u].ManagerName == userName) {
+                    if (managerTable[u].ManagerID != CusManagerID && (managerTable[u].PermissionType == 'M' || managerTable[u].PermissionType == 'CM')) {
+                        for (var d = 0; d < MCTable.length; d++) {
+                            if (MCTable[d].ManagerID == managerTable[u].ManagerID && MCTable[d].CompID == CompNumEdit) {
+                                managerexist = "yes";
+                                if (managerTable[u].PermissionType == 'M') {
+                                    document.getElementById("Dashboard").children[0].style.display = "none";
+                                    document.getElementById("permissionmanage").children[0].style.display = "none";
+                                    document.getElementById("ManagerComplaints").children[0].style.display = "none";
+                                }
+                                else {
+                                    document.getElementById("Dashboard").children[0].style.display = "none";
+                                    document.getElementById("permissionmanage").children[0].style.display = "none";
+                                }
+                            }
+                        }
+                        if (managerexist != "yes") {
+                            window.location.href = "MyComplaints.html";
+                            break;
+                        }
+                    }
+                    else if (managerTable[u].ManagerID == CusManagerID) {
+                        customermanagerexist = "yes";
+                        document.getElementById("Dashboard").children[0].style.display = "none";
+                    }
+                    else if (managerTable[u].PermissionType != 'SM') {
+                        window.location.href = "MyComplaints.html";
+                        break;
+                    }
+                    photo = managerTable[u].Photo;
+                    break;
+                }
+            }
+            document.getElementById("profile").innerHTML = '<img src="' + photo + '" />';
+            for (var i = 0; i < custTable.length; i++) {
+                $("#selectcustomer").append('<option value="' + custTable[i].CustName + '">' + custTable[i].CustName + '</option>');
+                $("#selectcustomer").selectpicker("refresh");
+            }
+            for (var j = 0; j < managerTable.length; j++) {
+                if (userName != managerTable[j].ManagerName) {
+                    $("#selectforInf").append('<option value="' + managerTable[j].ManagerName + '">' + managerTable[j].ManagerName + '</option>');
+                    $("#selectforInf").selectpicker("refresh");
+                }
+                else {
+                    $("#selectforInf").append('<option value="' + managerTable[j].ManagerName + '">' + managerTable[j].ManagerName + '</option>');
+                    $("#selectforInf").selectpicker("refresh");
+                    $option = $('#selectforInf').children('option[value="' + managerTable[j].ManagerName + '"]');
+                    $option.attr("disabled", "disabled");
+                    $("#selectforInf").selectpicker("refresh");
+                }
+            }
+            ajaxCall("GET", "./api/Product", "", getProductSuccess, error)
+        }
+
+        function getProductSuccess(data) {
+            products = data;
+            buildproductList();
+        }
+
+        filesNew1 = [];
+        filesArray = [];
+        probCount = [];
+        probCount[0] = 0;
+        probSTR = "";
+        problemnumber = 0;
+        function addProb() {
+            problemnumber++;
+            probSTR = '<div class="form-group" id="' + problemnumber + '">'
+                + '<label class="col-md-3 col-xs-12 control-label right">תיאור בעיה</label>'
+                + '<div class="col-md-6 col-xs-12 right">'
+                + '<div class="panel panel-default tabs">'
+                + '<ul class="nav nav-tabs nav-justified">'
+                + '<li onclick="SetReqProp1(problemnumber)" id="product' + problemnumber + '" class="active"><a id="' + problemnumber + 'Pnoclick" href="#tabProduct' + problemnumber + '" data-toggle="tab">בעיה ברמת מוצר</a></li>'
+                + '<li onclick="SetReqProp2(problemnumber)" id="supply' + problemnumber + '"><a id="' + problemnumber + 'Snoclick" href="#tabSupply' + problemnumber + '" data-toggle="tab">בעיה ברמת אספקה</a></li>'
+                + '</ul>'
+                + '<div class="panel-body tab-content">'
+                + '<div class="tab-pane active" id="tabProduct' + problemnumber + '">'
+                + '<div class="form-group">'
+                + '<label class="col-md-3 col-xs-12 control-label right">שם המוצר</label>'
+                + '<div class="col-md-6 col-xs-12 right">'
+                + '<select disabled required id="productname' + problemnumber + '" class="form-control select selectpicker" data-live-search="true">'
+                + '<option disabled="disabled" selected="selected" value="">בחר</option>'
+                + '</select>'
+                + '</div>'
+                + '</div>'
+                + '<div class="form-group">'
+                + '<label class="col-md-3 col-xs-12 control-label right">תיאור</label>'
+                + '<div class="col-md-6 col-xs-12 right">'
+                + '<div class="input-group">'
+                + '<textarea disabled id="descriptionP' + problemnumber + '" class="form-control" rows="5" cols="80" required style="z-index: 1;"></textarea>'
+                + '</div>'
+                + '</div>'
+                + '</div>'
+                + '<div class="form-group">'
+                + '<label class="col-md-3 control-label right">קבצים מצורפים:</label>'
+                + '<div id="slider' + problemnumber + '" class="slideshow-container col-md-6 right" style="padding:0;"></div>'
+                + '</div>'
+                + '</div>'
+                + '<div class="tab-pane" id="tabSupply' + problemnumber + '">'
+                + '<label class="col-md-3 col-xs-12 control-label right">תיאור</label>'
+                + '<div class="col-md-6 col-xs-12 right">'
+                + '<textarea disabled id="descriptionS' + problemnumber + '" class="form-control" rows="5" cols="80"></textarea>'
+                + '</div></div></div></div></div></div>'
+
+            probCount.push(problemnumber);//שמירת כל ה-ID של הבעיות שקיימות בדף
+
+            id = "addProblem" + problemnumber;
+            nextDiv = '<div id="addProblem' + (problemnumber) + '"></div>';
+            $("#problems").append(nextDiv);
+            document.getElementById(id).innerHTML = probSTR;//בניית הסלקט של המוצרים לכל בעיה שנוספת לדף
+        }
+
+        //הכנסת רשימת מוצרים לסלקט
+        function buildproductList() {
+            for (var j = 1; j < products.length; j++) {
+                $("#productname" + problemnumber).append('<option value="' + products[j].ProductName + '">' + products[j].ProductName + '</option>');
+                $("#productname" + problemnumber).selectpicker("refresh");
+            }
+            ajaxCall("GET", "./api/Problem", "", getProblemSuccess, error)
+        }
+
+        //required לא עובד על הסלקטים
+        //הפונקציה מתריאה כאשר לא מילאו את אחד הסלקטים ועושה עליו פוקוס
+        $("select.selectpicker").focus(function () {
+            $(this).next(".bootstrap-select").find('.selectpicker').focus();
+            alert("אנא מלא את כל השדות")
+        });
+
+        //קריאת הטבלאות על מנת ליצור את הבעיות והתלונה בדף
+        function getProblemSuccess(data) {
+            problemsTable = data;
+            ajaxCall("GET", "./api/File", "", CreatePage, error)
+        }
+
+        function CreatePage(data) {
+            filesTable = data;
+            //אם הסטטוס הוא "נסגר" - חוסמים את כל השדות בתלונה
+            for (var n = 0; n < complaintTable.length; n++) {
+                if (CompNumEdit == complaintTable[n].CompID) {
+                    stat = complaintTable[n].StatName1;
+                    if (stat == "נסגר" || managerexist == "yes") {
+                        document.getElementById("selectforTreat").disabled = true;
+                        document.getElementById("selectforInf").disabled = true;
+                        document.getElementById("TreatMode").disabled = true;
+                        document.getElementById("send").style.display = "none";
+                    }
+                    break;
+                }
+            }
+            FORT = "";
+            FORI = [];
+            //עוברים על טבלת תלונות כדי למצוא את התלונה
+            for (var i = 0; i < complaintTable.length; i++) {
+                if (complaintTable[i].CompID == CompNumEdit) {
+                    //הכנסת שם הלקוח לסלקט לקוחות
+                    for (var j = 0; j < custTable.length; j++) {
+                        if (complaintTable[i].CusLogin == custTable[j].CustLogin) {
+                            $("#selectcustomer").val(custTable[j].CustName);
+                            $("#selectcustomer").selectpicker("refresh");
+                            CustomerManagerID = custTable[j].ManagerID;
+                        }
+                    }
+                    localStorage["cusId"] = JSON.stringify(complaintTable[i].CusLogin);//שמירה בלוקאל סטורג'- לשליחת המייל בהמשך
+                    //הכנסת תאריך הזמנה
+                    $('#date').datepicker("setDate", new Date((complaintTable[i].OrderDate).substring(0, 10)));
+                    //הכנסת מיודעים ולטיפול של למערכים
+                    for (var d = 0; d < MCTable.length; d++) {
+                        if (complaintTable[i].CompID == MCTable[d].CompID) {
+                            if (MCTable[d].SendType == 'forTreatment') {
+                                for (var e = 0; e < managerTable.length; e++) {
+                                    if (MCTable[d].ManagerID == managerTable[e].ManagerID)
+                                        FORT = managerTable[e].ManagerName;
+                                }
+                            }
+                            else {
+                                for (var e = 0; e < managerTable.length; e++) {
+                                    if (MCTable[d].ManagerID == managerTable[e].ManagerID)
+                                        FORI.push(managerTable[e].ManagerName);
+                                }
+                            }
+                        }
+                    }
+                    //בדיקת מנהל תיק לקוח של הלקוח
+                    //for (var x = 0; x < managerTable.length; x++) {
+                    //    if (CustomerManagerID == managerTable[x].ManagerID) {
+                    //        CustomerManagerName = managerTable[x].ManagerName;
+                    //    }
+                    //}
+                    //הכנסת האופציות שמסומנות במיודעים לסלקט "בטיפול של"
+                    $("#selectforTreat").append('<option disabled="disabled" selected="selected" value="">בחר</option>');
+                    $("#selectforTreat").append('<option value="' + userName + '">' + userName + '</option>');
+                    //הכנסת האופציות שמסומנות במיודעים לסלקט "בטיפול של"
+                    for (var k = 0; k < FORI.length; k++) {
+                        $("#selectforTreat").append('<option value="' + FORI[k] + '">' + FORI[k] + '</option>');
+                        $("#selectforTreat").selectpicker("refresh");
+                    }
+                    if (FORT != "") {
+                        $("#hideTreat").removeAttr("style");
+                        $("#selectforTreat").val(FORT);
+                        $("#selectforTreat").selectpicker("refresh");
+                        $("#selectforInf").val(FORI);
+                        $("#selectforInf").selectpicker("refresh");
+                        //לכל אופציה שיש במיודעים מגדירים שתהיה מסומנת וחסומה להורדת הוי
+                        for (var s = 0; s < FORI.length; s++) {
+                            $option = $('#selectforInf').children('option[value="' + FORI[s] + '"]');
+                            $option.attr("disabled", "disabled");
+                            $option.attr("selected", "selected");
+                        }
+                        $("#selectforInf").selectpicker("refresh");
+                    }
+                    //אם כבר קיים סוג פתיחת התלונה אז מחזירים את הערך לשדה "אופן טיפול"
+                    if (complaintTable[i].OpenType != null) {
+                        document.getElementById("TreatMode").value = complaintTable[i].ModeOfTreatment1;
+                    }
+                    //אם קיים דוח סקר והסטטוס לא נסגר יש אופצית הורדה וכפתור החלפת קובץ
+                    if (complaintTable[i].OrderReport != "" && stat != "נסגר" && managerexist != "yes") {
+                        strFileInput = '<a id="filesinp" class="file-input-wrapper btn btn-default  fileinput"><span>החלף דו"ח</span><input type="file" class="fileinput" name="filename2" id="reportfile" title="החלף דו"ח" style="left: -182.75px; top: 15px;"></a>' +
+                            '<span id="exist" style="padding-right:10px;"><a href="' + complaintTable[i].OrderReport + '" download>הורד קובץ קיים </a></span>';
+                    }
+                    //אם אין דוח סקר והסטטוס לא נסגר יש אופציית העלאת קובץ
+                    else if (complaintTable[i].OrderReport == "" && stat != "נסגר" && managerexist != "yes") {
+                        strFileInput = '<a id="filesinp" class="file-input-wrapper btn btn-default  fileinput"><span>העלה דו"ח</span><input type="file" class="fileinput" name="filename2" id="reportfile" title="העלה דו"ח" style="left: -182.75px; top: 15px;"></a>';
+                    }
+                    //אם קיים דוח סקר וסטטוס נסגר יש אופציית הורדת הקובץ
+                    else if ((complaintTable[i].OrderReport != "" && stat == "נסגר") || (complaintTable[i].OrderReport != "" && managerexist == "yes")) {
+                        document.getElementById("changemargin").style.marginTop = "7px";
+                        strFileInput = '<span id="exist" style="padding-right:10px;"><a href="' + complaintTable[i].OrderReport + '" download>הורד קובץ קיים </a></span>';
+                    }
+                    //אם לא קיים דוח וסטטוס נסגר לא מופיע כלום
+                    else {
+                        document.getElementById("hideReport").style.display = "none";
+                        strFileInput = "";
+                    }
+                    //אם המשתמש מחליף דוח מעלימים את הקובץ הקיים - בהמשך אנו גם מוחקים אותו מהשרת
+                    $("body").on('DOMSubtreeModified', "#FI", function () {
+                        if ($('span.file-input-name').text()) {
+                            document.getElementById("exist").style.display = "none";
+                        }
+                    });
+                    document.getElementById("FI").innerHTML = strFileInput;
+                    ProbCounter = 0;
+                    for (var k = 0; k < problemsTable.length; k++) {
+                        if (complaintTable[i].CompID == problemsTable[k].CompID) {
+                            if (problemsTable[k].ProbType == 'מוצר') {
+                                if (ProbCounter != 0) {
+                                    addProb();
+                                }
+                                $("#" + ProbCounter + "Snoclick").attr('style', 'pointer-events: none;');
+                                $("#productname" + ProbCounter).val(problemsTable[k].ProductName);
+                                $("#productname" + ProbCounter).selectpicker("refresh");
+                                document.getElementById("descriptionP" + ProbCounter).innerText = problemsTable[k].Description11;
+                                SlideCreate(problemsTable[k].ProbID, ProbCounter);
+                            }
+                            else {
+                                if (ProbCounter != 0) {
+                                    addProb();
+                                }
+                                $("#" + ProbCounter + "Pnoclick").attr('style', 'pointer-events: none;');
+                                $("#product" + ProbCounter).removeClass("active");
+                                $("#supply" + ProbCounter).addClass("active");
+                                $("#tabProduct" + ProbCounter).removeClass("active");
+                                $("#tabSupply" + ProbCounter).addClass("active");
+                                $("#productname" + ProbCounter).prop('required', false);
+                                $("#descriptionP" + ProbCounter).prop('required', false);
+                                $("#descriptionS" + ProbCounter).prop('required', true);
+                                document.getElementById("descriptionS" + ProbCounter).innerText = problemsTable[k].Description11;
+                            }
+                            ProbCounter++;
+                        }
+                    }
+                }
+            }
+        }
+
+        //בכל פעם שבוחרים באופציה מרשימת המיודעים- הוא מתווסף כאופציה לבחירה ב"לטיפול של"
+        $("#selectforInf").change(function () {
+            $("#hideTreat").removeAttr("style");
+            var val = $(this).val();
+            $('#selectforTreat').empty();
+            $("#selectforTreat").append('<option disabled="disabled" selected="selected" value="">בחר</option>');
+            $("#selectforTreat").append('<option value="' + userName + '">' + userName + '</option>');
+            //אם בוחרים עוד אופציות במיודעים, מוסיף אותן ל"בטיפול של"
+            if (FORI.length != 0) {
+                for (var l = 0; l < FORI.length; l++) {
+                    $("#selectforTreat").append('<option value="' + FORI[l] + '">' + FORI[l] + '</option>');
+                    $("#selectforTreat").selectpicker("refresh");
+                }
+            }
+            //אם המשתמש בחר מיודעים נוספים להוסיף לתלונה הם מתווספים לסלקט "בטיפול של"
+            for (var k = 0; k < val.length; k++) {
+                $("#selectforTreat").append('<option value="' + val[k] + '">' + val[k] + '</option>');
+                $("#selectforTreat").selectpicker("refresh");
+            }
+        });
+
+        function SlideCreate(problemID, ProbCounter) {
+            strfiles = "";
+            counterfiles = 0;
+            //ספירה כמה קבצים יש לאותה בעיה שיוצרים לה את הסליידר
+            for (var h = 0; h < filesTable.length; h++) {
+                if (problemID == filesTable[h].ProblemID) {
+                    counterfiles++;
+                }
+            }
+            num = 0;
+            //יצירת מחרוזות של הסליידר
+            for (var j = 0; j < filesTable.length; j++) {
+                if (problemID == filesTable[j].ProblemID) {
+                    num++;
+                    var ext = (filesTable[j].Filepath).substring((filesTable[j].Filepath).lastIndexOf('.') + 1);
+                    //אם הסיומת של הקובץ היא של תמונה- יוצרים מחרוזת של תמונה
+                    if (ext == "jpg" || ext == "jpeg" || ext == "bmp" || ext == "gif" || ext == "png" || ext == "PNG") {
+                        strfiles += '<div id="' + filesTable[j].Filepath + '" class="mySlides' + problemID + '" style="display: none; ">' +
+                            '<div class="numbertext">' + num + '/' + counterfiles + '</div>' +
+                            '<a name="' + filesTable[j].Filepath + '" id="' + ProbCounter + '-' + num + '" href="' + filesTable[j].Filepath + '" download><img title="לחץ להורדה" src="' + filesTable[j].Filepath + '" style="width:100%"></a>' +
+                            '</div>';
+                    }
+                    //אם הסיומת של הקובץ היא של וידאו- יוצרים מחרוזת של וידאו
+                    else {
+                        strfiles += '<div id="' + filesTable[j].Filepath + '" class="mySlides' + problemID + '" style="display: none; ">' +
+                            '<div class="numbertext">' + num + '/' + counterfiles + '</div>' +
+                            '<a name="' + filesTable[j].Filepath + '" id="' + ProbCounter + '-' + num + '" href="' + filesTable[j].Filepath + '" download><img title="לחץ להורדה" src="images/video.PNG" style="width:100%"></a>' +
+                            '</div>';
+                    }
+                }
+            }
+            strfilesarrow = '<a class="prev1" onclick="plusSlides(1,' + problemID + ')">&#10095;</a>' +
+                '<a class="next1" onclick="plusSlides(-1,' + problemID + ')">&#10094;</a>';//בניית החצים על הסליידר
+            strfiles = strfiles + strfilesarrow;
+            //בדיקה האם יש קבצים לבעיה
+            if (strfiles == strfilesarrow) {
+                strfiles = 'אין קבצים';
+                document.getElementById("slider" + ProbCounter).style.padding = "7px 11px";
+                document.getElementById("slider" + ProbCounter).style.textAlign = "right";
+                document.getElementById("slider" + ProbCounter).innerHTML = strfiles;
+            }
+            else {
+                document.getElementById("slider" + ProbCounter).style.padding = "0";
+                document.getElementById("slider" + ProbCounter).innerHTML = strfiles;
+                showSlides(slideIndex, problemID);
+            }
+        }
+
+        var slideIndex = 1;
+
+        function showSlides(n, PID) {
+            var i;
+            var slides = document.getElementsByClassName("mySlides" + PID);//מערך שמקבל את כל הקבצים של הבעיה
+            //במידה ואנחנו עומדים על התמונה האחרונה ולוחצים פלוס קדימה הוא מחזיר את סליידאינדקס ל-1
+            if (n > slides.length) { slideIndex = 1 }
+            //במידה ואנחנו עומדים על התמונה הראשונה ולוחצים מינוס אחורה הוא מחזיר את סליידאינדקס לאינדקס האחרון
+            if (n < 1) { slideIndex = slides.length }
+            //מסתיר את כל התמונות ואז חושף רק את מה שאנחנו רוצים לראות
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            slides[slideIndex - 1].style.display = "block";
+        }
+
+        //פונקציה שמוגדרת על החצים של הסליידר
+        function plusSlides(n, PID) {
+            showSlides((slideIndex += n), PID);
+        }
+
+        function SaveChanges() {
+            onTreatDate = "";
+            if (document.getElementById("TreatMode").value != "") {
+                modeoftreat = document.getElementById("TreatMode").value;
+                status = "נסגר";
+            }
+            else if ($('#selectforTreat').val() == userName) {
+                modeoftreat = "";
+                status = "בטיפול";
+                onTreatDate = new Date().toISOString();
+            }
+            else if (stat == "בטיפול") {
+                modeoftreat = "";
+                status = "בטיפול";
+            }
+            else {
+                modeoftreat = "";
+                status = "ממתין לטיפול";
+            }
+            var data1 = new FormData();
+            var files1 = $("#reportfile").get(0).files;
+
+            if (files1.length > 0) {
+                for (f = 0; f < files1.length; f++) {
+                    data1.append("UploadedImage", files1[f]);
+                }
+            }
+            // Ajax upload
+            $.ajax({
+                type: "POST",
+                url: "./api/File/upload",
+                contentType: false,
+                processData: false,
+                data: data1,
+                success: successReport,
+                error: error
+            });
+        }
+
+        function successReport(data) {
+            if (data.length != 0) {
+                reportStr = data[0];
+                var Complaint = {
+                    "CompID": CompNumEdit,
+                    "lastUpdate": new Date().toISOString(),
+                    "onTreatDate": onTreatDate,
+                    "orderReport": reportStr,
+                    "StatName1": status,
+                    "ModeOfTreatment1": modeoftreat
+                }
+            }
+            else {
+                var Complaint = {
+                    "CompID": CompNumEdit,
+                    "lastUpdate": new Date(),
+                    "onTreatDate": onTreatDate,
+                    "StatName1": status,
+                    "ModeOfTreatment1": modeoftreat
+                }
+            }
+            ajaxCall("PUT", "./api/Complaint/update", JSON.stringify(Complaint), updateSuccess, error);
+        }
+
+        function updateSuccess() {
+            console.log("update complaint success!")
+            MCArray = [];
+            if ($('#selectforTreat').val() == "") {
+                fortreatment = FORT;
+            }
+            else {
+                fortreatment = $('#selectforTreat').val();
+            }
+            informed = $('#selectforInf').val();
+            for (var c = 0; c < informed.length; c++) {
+                FORI.push(informed[c]);
+            }
+            for (var j = 0; j < managerTable.length; j++) {
+                if (fortreatment == managerTable[j].ManagerName) {
+                    var ManagerComplaint = {
+                        "ManagerID": managerTable[j].ManagerID,
+                        "CompID": CompNumEdit,
+                        "SendType": 'forTreatment'
+                    }
+                    MCArray.push(ManagerComplaint);
+                    break;
+                }
+            }
+            for (var i = 0; i < FORI.length; i++) {
+                for (var j = 0; j < managerTable.length; j++) {
+                    if (FORI[i] == managerTable[j].ManagerName) {
+                        var ManagerComplaint = {
+                            "ManagerID": managerTable[j].ManagerID,
+                            "CompID": CompNumEdit,
+                            "SendType": 'forInformed'
+                        }
+                        MCArray.push(ManagerComplaint);
+                        break;
+                    }
+                }
+            }
+            ajaxCall("DELETE", "./api/ManagerComplaint/" + CompNumEdit, "", deleteMCSuccess, error)
+        }
+
+
+        function deleteMCSuccess() {
+            ajaxCall("POST", "./api/ManagerComplaint", JSON.stringify(MCArray), MCSuccess, error);
+        }
+
+        function MCSuccess() {
+            console.log("success insert managerComplaint")
+            emailStr = "";
+            emailTreatment = "";
+            for (var i = 0; i < informed.length; i++) {
+                for (var j = 0; j < managerTable.length; j++) {
+                    if (informed[i] == managerTable[j].ManagerName) {
+                        emailStr += managerTable[j].Email + ", ";
+                        break;
+                    }
+                }
+            }
+            if (emailStr != "") {
+                Emails = emailStr.substring(0, emailStr.length - 2);
+                localStorage["EmailsInformed"] = JSON.stringify(Emails);
+            }
+            if ($('#selectforTreat').val() != "") {
+                for (var l = 0; l < managerTable.length; l++) {
+                    if ($('#selectforTreat').val() == managerTable[l].ManagerName && $('#selectforTreat').val() != userName) {
+                        emailTreatment += managerTable[l].Email;
+                        localStorage["EmailTreatment"] = JSON.stringify(emailTreatment);
+                        break;
+                    }
+                }
+            }
+            localStorage["CompId"] = JSON.stringify(CompNumEdit);
+            window.location.href = "editsuccessManager.html";
+        }
+
+        function GoToComments() {
+            localStorage["CompId"] = JSON.stringify(CompNumEdit);
+            window.location.href = "Comments.html";
+        }
+
+        function error(err) {
+            console.log(err);
+        }
+
+
+    </script>
+
+    <script>
+        $(function () {
+            $("#file-simple").fileinput({
+                showUpload: false,
+                showCaption: false,
+                browseClass: "btn btn-danger",
+                fileType: "any"
+            });
+        });
+    </script>
+
+</body>
+</html>
+
+
+
+
+

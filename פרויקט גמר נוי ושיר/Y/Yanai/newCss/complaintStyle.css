@@ -1,0 +1,240 @@
+﻿#complaintTable {
+    text-align: center;
+}
+
+th {
+    text-align: center;
+}
+
+.x-navigation.x-navigation-minimized {
+    display: none;
+}
+
+.page-container.page-container-wide .page-sidebar {
+    width: 0px;
+}
+
+@media (max-width: 1024px) {
+    .x-navigation.x-navigation-horizontal {
+        height: 0px;
+        background: #1d2127;
+    }
+}
+
+.page-container.page-navigation-toggled .page-content {
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+td.details-control {
+    text-align: center;
+    cursor: pointer;
+}
+
+tr.shown td.details-control {
+    text-align: center;
+}
+
+.mCS-dir-rtl > .mCSB_inside > .mCSB_container {
+    margin-right: 0;
+    margin-left: 0px;
+}
+
+#tdiv {
+    width: 100%;
+    border: solid 2px #D5D5D5;
+    padding: 20px;
+    border-radius: 13px;
+    margin-bottom: 10px;
+    padding-bottom: 40px;
+}
+
+#comment {
+    margin: 4px;
+    float: left;
+}
+
+tr.wid td {
+    width: 33.3%;
+}
+
+.B {
+    font-weight: bold;
+    float: right;
+    margin-left: 5px;
+}
+
+td.archive-control {
+    text-align: center;
+    cursor: pointer;
+    border: 1px solid;
+    border-radius: 5px;
+}
+
+td.edit-control {
+    text-align: center;
+    cursor: pointer;
+    border: 1px solid;
+    border-radius: 5px;
+}
+
+* {
+    box-sizing: border-box
+}
+
+body {
+    font-family: Verdana, sans-serif;
+    margin: 0
+}
+
+img {
+    vertical-align: middle;
+}
+
+/* Slideshow container */
+.slideshow-container {
+    max-width: 1000px;
+    position: relative;
+    margin: auto;
+}
+
+/* Next & previous buttons */
+.prev1, .next1 {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    padding: 16px;
+    margin-top: -22px;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+}
+
+/* Position the "next button" to the right */
+.next1 {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+}
+
+.prev1 {
+    left: 0;
+}
+
+    /* On hover, add a black background color with a little bit see-through */
+    .prev1:hover, .next1:hover {
+        background-color: rgba(0,0,0,0.8);
+    }
+
+
+/* Number text (1/3 etc) */
+.numbertext {
+    color: black;
+    font-size: 12px;
+    padding: 8px 12px;
+    position: absolute;
+    top: 0;
+}
+
+/* The dots/bullets/indicators */
+.dot {
+    cursor: pointer;
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.6s ease;
+}
+
+    .active, .dot:hover {
+        background-color: #717171;
+    }
+
+/* Fading animation */
+.fade {
+    -webkit-animation-name: fade;
+    -webkit-animation-duration: 1.5s;
+    animation-name: fade;
+    animation-duration: 1.5s;
+}
+
+@-webkit-keyframes fade {
+    from {
+        opacity: .4
+    }
+
+    to {
+        opacity: 1
+    }
+}
+
+@keyframes fade {
+    from {
+        opacity: .4
+    }
+
+    to {
+        opacity: 1
+    }
+}
+
+/* On smaller screens, decrease text size */
+@media only screen and (max-width: 300px) {
+    .prev1, .next1, .text {
+        font-size: 11px
+    }
+}
+
+a.next1:hover, a.next1:focus {
+    color: none;
+    text-decoration: none;
+}
+
+a.prev1:hover, a.prev1:focus {
+    color: none;
+    text-decoration: none;
+}
+
+td, th {
+    padding: 0;
+    vertical-align: top;
+}
+
+.hscroll {
+    overflow-x: auto; /* Horizontal */
+}
+
+.label-closed {
+    background-color: #5dc975;
+}
+
+.label-treatment {
+    background-color: #7281cb;
+}
+
+.label-new {
+    background-color: #b84555;
+}
+
+.label-waitingtreatment {
+    background-color: #dbab3f;
+}
+
+.page-container .page-sidebar.page-sidebar-fixed {
+    background-color: #1b1e24;
+}
+
+.profile .profile-image {
+    margin: 0px 0px 10px;
+    text-align: right;
+    margin-top: -10px;
+}
+
+.profile {
+    padding: 0px 0px;
+}

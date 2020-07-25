@@ -1,0 +1,10 @@
+﻿#logo {
+    text-align: center;
+    margin: 10px;
+}
+
+.login-container .login-box .login-body .login-title {
+    color: #FFF;
+    font-size: 19px;
+    text-align: center;
+}

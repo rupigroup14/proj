@@ -1,0 +1,122 @@
+﻿<!DOCTYPE html>
+<html lang="en" class="body-full-height" dir="rtl">
+<head>
+    <!-- META SECTION -->
+    <title>ינאי בתי צמיחה- דף כניסה</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link rel="icon" href="images/logo.PNG" type="image/x-icon" />
+    <!-- END META SECTION -->
+    <!-- CSS INCLUDE -->
+    <link rel="stylesheet" type="text/css" id="theme" href="css/theme-default.css" />
+    <link href="newCss/default.css" rel="stylesheet" />
+    <link href="newCss/loginstyle.css" rel="stylesheet" />
+    <!-- EOF CSS INCLUDE -->
+    <link href='https://fonts.googleapis.com/css?family=Rubik' rel='stylesheet'>
+</head>
+<body style="font-family:'Rubik'">
+
+    <div class="login-container lightmode">
+
+        <div class="login-box animated fadeInDown">
+            <div id="logo"><img style="height:100px" src="images/logo.png" /></div>
+            <div class="login-body">
+                <div class="login-title"><strong>כניסה למערכת</strong></div>
+                <form id="form1" class="form-horizontal">
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <input required id="username" type="text" class="form-control" placeholder="שם משתמש" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <input required id="password" type="password" class="form-control" placeholder="סיסמה" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-6">
+                            <input onclick="LogIn()" type="submit" value="היכנס" class="btn btn-info btn-block" />
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- START SCRIPTS -->
+    <!-- START PLUGINS -->
+    <script type="text/javascript" src="js/plugins/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="js/plugins/jquery/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="js/plugins/bootstrap/bootstrap.min.js"></script>
+    <!-- END PLUGINS -->
+    <!-- THIS PAGE PLUGINS -->
+    <script type='text/javascript' src='js/plugins/icheck/icheck.min.js'></script>
+    <script type="text/javascript" src="js/plugins/mcustomscrollbar/jquery.mCustomScrollbar.min.js"></script>
+
+    <script type="text/javascript" src="js/plugins/bootstrap/bootstrap-datepicker.js"></script>
+    <script type="text/javascript" src="js/plugins/bootstrap/bootstrap-file-input.js"></script>
+    <script type="text/javascript" src="js/plugins/bootstrap/bootstrap-select.js"></script>
+    <script type="text/javascript" src="js/plugins/tagsinput/jquery.tagsinput.min.js"></script>
+    <!-- END THIS PAGE PLUGINS -->
+    <!-- START TEMPLATE -->
+    <script type="text/javascript" src="js/settings.js"></script>
+
+    <script type="text/javascript" src="js/plugins.js"></script>
+    <script type="text/javascript" src="js/actions.js"></script>
+    <!-- END TEMPLATE -->
+    <script src="Scripts/ajaxCalls.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $("#form1").submit(f1);
+        });
+
+        function f1() {
+            return false;
+        }
+
+        //שליחת שם משתמש וסיסמה לקונטרולר לבדיקה מול השרת האם קיים במערכת
+        function LogIn() {
+            username = document.getElementById("username").value;
+            password = document.getElementById("password").value;
+            ajaxCall("GET", "./api/Manager/" + username + "/" + password, "", getManagerSuccess, error);
+        }
+
+        function getManagerSuccess(data) {
+            if (data == true) {
+                localStorage["username"] = JSON.stringify(username);
+                //אם המשתמש מנסה להגיע ללינק שקיבל במייל אז שולחים אותו לשם אחרי התחברות למערכת
+                if (localStorage["fromwhere"]){
+                    if (JSON.parse(localStorage["fromwhere"]) == "LinkEdit") {
+                        localStorage.removeItem("fromwhere");
+                        compnumber = JSON.parse(localStorage["CompId"]);
+                        window.location.href = "editManagerComplaintLink.html?" + compnumber;
+                    }
+                }
+                //לאחר לוגין המשתמש נכנס לדף הראשי של המערכת
+                else {
+                    window.location.href = "MyComplaints.html";
+                }
+            }
+            else {
+                alert("שם משתמש או סיסמה אינם נכונים, אנא נסה שוב");
+            }
+        }
+
+        function error(err) {
+            console.log(err);
+        }
+    </script>
+
+</body>
+</html>
+
+
+
+
+
+

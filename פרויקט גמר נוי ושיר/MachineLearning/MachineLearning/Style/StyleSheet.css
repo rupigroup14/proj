@@ -1,0 +1,33 @@
+﻿body {
+    background-image: url('../images/background.PNG');
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
+
+#PageTitle {
+    font-size: 30px;
+    text-align: center;
+}
+
+#InputOutput {
+    text-align: center;
+}
+
+textarea {
+    height: auto;
+    resize: none;
+}
+
+button {
+    font-size: 20px;
+    background-color: white;
+    border: 1px black solid;
+    border-radius: 10px;
+    height: 35px;
+    cursor: pointer;
+}
+
+#result {
+    font-size: 30px;
+    margin-top: 10px;
+}
